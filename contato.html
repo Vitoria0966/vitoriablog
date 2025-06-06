@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Entre em contato com o Blog da Ana - Deixe seu feedback e mensagens">
+    <title>Contato - Blog da Ana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <style>
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 60vh;
+            padding: 40px 0;
+        }
+        
+        .contact-form {
+            width: 100%;
+            max-width: 600px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .contact-form h2 {
+            color: #ff85a2;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: inherit;
+            font-size: 1em;
+            box-sizing: border-box;
+        }
+        
+        textarea.form-input {
+            height: 150px;
+            resize: vertical;
+        }
+        
+        .submit-btn {
+            background-color: #ff85a2;
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: all 0.3s ease;
+            width: 100%;
+            max-width: 200px;
+        }
+        
+        .submit-btn:hover {
+            background-color: #ff6b8b;
+            transform: translateY(-2px);
+        }
+        
+        /* Estilos para validação */
+        .error {
+            color: #e74c3c;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+        
+        .form-input.error-border {
+            border-color: #e74c3c;
+        }
+        
+        .success-message {
+            color: #2ecc71;
+            font-weight: bold;
+            margin-top: 20px;
+            display: none;
+        }
+        .contact-form {
+        width: 90%; /* Em telas pequenas ocupa 90% */
+        margin: 0 auto; /* Centraliza */
+    }
+
+        .form-input, textarea.form-input {
+        width: 100%;
+        box-sizing: border-box; /* Garante que padding não some à largura */
+    }
+    </style>
+</head>
+<body class="contact-layout">
+   
+    <header role="banner">
+        <div class="container">
+            <h1>Blog da Ana</h1>
+            <p class="subtitle">Deixe seu feedback</p>
+        </div>
+    </header>
+   
+    
+    <nav role="navigation" aria-label="Menu principal">
+        <div class="container">
+            <ul class="menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="ccb.html">Memória 1</a></li>
+                <li><a href="ana.html">Memória 2</a></li>
+                <li><a href="theo.html">Memória 3</a></li>
+                <li><a href="viagem.html">Memória 4</a></li>
+                <li><a href="contato.html" class="active" aria-current="page">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+   
+    <main class="contact-container" role="main">
+        <div class="contact-form">
+            <h2>Entre em Contato</h2>
+            <p>Deixe sua mensagem para saber se gostou do meu site!</p>
+           
+            <form id="contactForm" action="#" method="post" aria-label="Formulário de contato" novalidate>
+                <div class="form-group">
+                    <label for="name" class="form-label">Seu Nome:</label>
+                    <input type="text" id="name" name="name" class="form-input" required>
+                    <span id="nameError" class="error">Por favor, insira seu nome completo</span>
+                </div>
+               
+                <div class="form-group">
+                    <label for="email" class="form-label">Seu Email:</label>
+                    <input type="email" id="email" name="email" class="form-input" required>
+                    <span id="emailError" class="error">Por favor, insira um email válido</span>
+                </div>
+
+                <div class="form-group">
+                    <label for="phone" class="form-label">Seu Telefone:</label>
+                    <input type="tel" id="phone" name="phone" class="form-input" required>
+                    <span id="phoneError" class="error">Por favor, insira um telefone válido</span>
+                </div>
+               
+                <div class="form-group">
+                    <label for="message" class="form-label">Sua Mensagem:</label>
+                    <textarea id="message" name="message" class="form-input" required></textarea>
+                    <span id="messageError" class="error">Por favor, escreva sua mensagem</span>
+                </div>
+               
+                <button type="submit" class="submit-btn">Enviar Mensagem</button>
+                <div id="successMessage" class="success-message">Mensagem enviada com sucesso!</div>
+            </form>
+        </div>
+    </main>
+   
+    
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; <span id="current-year">2025</span> Blog da Ana - Todos os direitos reservados</p>
+        </div>
+    </footer>
+
+    
+    <script>
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+
+    
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            
+            resetErrors();
+            
+          
+            const nameValid = validateName();
+            const emailValid = validateEmail();
+            const phoneValid = validatePhone();
+            const messageValid = validateMessage();
+            
+            // Se todos os campos forem válidos
+            if (nameValid && emailValid && phoneValid && messageValid) {
+                // Aqui você pode adicionar o código para enviar o formulário
+                // Por enquanto, apenas mostra a mensagem de sucesso
+                document.getElementById('successMessage').style.display = 'block';
+                
+                setTimeout(() => {
+                    this.reset();
+                    document.getElementById('successMessage').style.display = 'none';
+                }, 3000);
+            }
+        });
+        
+       
+        function validateName() {
+            const nameInput = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            
+            if (nameInput.value.trim() === '') {
+                showError(nameInput, nameError, 'Por favor, insira seu nome completo');
+                return false;
+            }
+            
+            if (nameInput.value.trim().length < 3) {
+                showError(nameInput, nameError, 'O nome deve ter pelo menos 3 caracteres');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function validateEmail() {
+            const emailInput = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            
+            if (emailInput.value.trim() === '') {
+                showError(emailInput, emailError, 'Por favor, insira seu email');
+                return false;
+            }
+            
+            if (!emailRegex.test(emailInput.value)) {
+                showError(emailInput, emailError, 'Por favor, insira um email válido');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function validatePhone() {
+            const phoneInput = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+          
+            const phoneRegex = /^(?:(?:\+|00)?(55)\s?)?(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$/;
+            
+            if (phoneInput.value.trim() === '') {
+                showError(phoneInput, phoneError, 'Por favor, insira seu telefone');
+                return false;
+            }
+            
+            
+            const cleanPhone = phoneInput.value.replace(/\D/g, '');
+            
+            if (cleanPhone.length < 10 || cleanPhone.length > 11) {
+                showError(phoneInput, phoneError, 'Por favor, insira um telefone válido (10 ou 11 dígitos)');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        function validateMessage() {
+            const messageInput = document.getElementById('message');
+            const messageError = document.getElementById('messageError');
+            
+            if (messageInput.value.trim() === '') {
+                showError(messageInput, messageError, 'Por favor, escreva sua mensagem');
+                return false;
+            }
+            
+            if (messageInput.value.trim().length < 10) {
+                showError(messageInput, messageError, 'A mensagem deve ter pelo menos 10 caracteres');
+                return false;
+            }
+            
+            return true;
+        }
+        
+        
+        function showError(input, errorElement, message) {
+            input.classList.add('error-border');
+            errorElement.textContent = message;
+            errorElement.style.display = 'block';
+        }
+        
+        function resetErrors() {
+           
+            document.querySelectorAll('.error').forEach(error => {
+                error.style.display = 'none';
+            });
+            
+           
+            document.querySelectorAll('.form-input').forEach(input => {
+                input.classList.remove('error-border');
+            });
+            
+           
+            document.getElementById('successMessage').style.display = 'none';
+        }
+        
+        document.getElementById('name').addEventListener('blur', validateName);
+        document.getElementById('email').addEventListener('blur', validateEmail);
+        document.getElementById('phone').addEventListener('blur', validatePhone);
+        document.getElementById('message').addEventListener('blur', validateMessage);
+    </script>
+</body>
+</html>
